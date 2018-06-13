@@ -1,13 +1,12 @@
+# Reverse the Singly linked list
 # Implementation of Singly LL
 
 from LinkedList_Problems.SLL_Problems.SLLNode import SLLNode
 
 
-class SinglyLLImpl(object):
+class ReverseSLL(object):
     def __init__(self):
         self.root = None
-        self.c = 0
-        self.stack = []
 
     def insert_at_begin(self, new_node):
         if self.root is None:
@@ -41,19 +40,36 @@ class SinglyLLImpl(object):
                     temp = temp.next
                     count += 1
 
-    def is_palindrome(self):
-        temp = self.root
-        while temp:
-            self.stack.append(temp.data)
-            temp = temp.next
-        temp = self.root
-        while temp:
-            if temp.data != self.stack.pop():
-                return False
-            temp = temp.next
-        return True
+    def reverse_ll_iter(self):
+        prev = None
+        curr = self.root
+        next = None
+        while curr:
+            next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
+        self.root = prev
 
+    # Pending need to be complete
+    def reverse_ll_rec(self, node):
 
+        if node is None:
+            return
+        start = node
+        rest = start.next
+
+        if rest is None:
+            return
+        self.reverse_ll_rec(rest)
+        start.next.next = start
+        n_node = start.next
+        start.next = None
+        start.next = n_node
+        self.root = start
+
+    def reverse_rec(self):
+        self.reverse_ll_rec(self.root)
 
     def print_ll(self):
         temp = self.root
@@ -64,18 +80,20 @@ class SinglyLLImpl(object):
 
 
 if __name__ == '__main__':
-    singlyLLImpl = SinglyLLImpl()
-    new_node = SLLNode("M")
+    reverseSLL = ReverseSLL()
+    new_node = SLLNode(45)
 
     # Insert the node at beginning
-    singlyLLImpl.insert_at_begin(new_node)
+    reverseSLL.insert_at_begin(new_node)
 
-    singlyLLImpl.insert_at_end(SLLNode("A"))
-    singlyLLImpl.insert_at_end(SLLNode("D"))
-    singlyLLImpl.insert_at_end(SLLNode("A"))
-    singlyLLImpl.insert_at_end(SLLNode("M"))
+    reverseSLL.insert_at_end(SLLNode(23))
+    reverseSLL.insert_at_end(SLLNode(12))
+    reverseSLL.insert_at_end(SLLNode(67))
+    reverseSLL.insert_at_end(SLLNode(55))
 
-    print("SLL is palindrome :: ",singlyLLImpl.is_palindrome())
+    reverseSLL.print_ll()
+    reverseSLL.reverse_ll_iter()
+    reverseSLL.print_ll()
 
-    singlyLLImpl.print_ll()
-
+    reverseSLL.reverse_rec()
+    reverseSLL.print_ll()

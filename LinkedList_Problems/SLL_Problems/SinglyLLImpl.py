@@ -236,6 +236,7 @@ if __name__ == '__main__':
     singlyLLImpl.insert_at_end(SLLNode(50))
     singlyLLImpl.insert_at_end(SLLNode(50))
     singlyLLImpl.insert_at_end(SLLNode(50))
+    singlyLLImpl.insert_at_end(SLLNode(51))
 
     singlyLLImpl.print_ll()
 
